@@ -66,4 +66,8 @@ class AuthorizationStore private constructor(context: Context){
 
         expirationDate = calendar.time
     }
+
+    fun clear(){
+        preference.edit().clear().apply()
+    }
 }

@@ -58,4 +58,8 @@ class UserStore private constructor(context: Context) {
             usertype = usertype
         )
     }
+
+    fun clear(){
+        preference.edit().clear().apply()
+    }
 }
