@@ -15,6 +15,7 @@
             android:text="Create Account"
             android:textSize="@dimen/material_typography_display2"
             android:gravity="center"
+            android:textColor="@android:color/white"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/container_register"/>
 
@@ -29,15 +30,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
                 android:hint="@string/prompt_firstname">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_firstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeActionLabel="@string/action_register"
                     android:imeOptions="actionNext"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPersonName"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,15 +47,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
                 android:hint="@string/prompt_lastname">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeActionLabel="@string/action_register"
                     android:imeOptions="actionNext"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPersonName"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -61,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
                 android:hint="@string/prompt_email">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -68,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:imeOptions="actionNext"
-                    android:inputType="textPassword"/>
+                    android:inputType="textEmailAddress"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,6 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
                 android:hint="@string/prompt_password">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -91,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
                 android:hint="@string/prompt_confirm_password">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -103,19 +109,29 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_login"
+                android:id="@+id/button_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/action_sign_in"
+                android:text="@string/action_register"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"/>
 
     </LinearLayout>
 
-    <ProgressBar
+    <FrameLayout
             android:id="@+id/view_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:clickable="true"
+            android:focusable="true"
+            tools:visibility="visible">
+
+        <ProgressBar
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

@@ -2,42 +2,32 @@ package com.cashlessride.booking.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.cashlessride.booking.R
 import com.cashlessride.booking.data.Authorization
-import com.cashlessride.booking.manager.APIManager
-import com.cashlessride.booking.manager.AuthorizationStore
-import com.cashlessride.booking.manager.UserStore
 import kotlinx.android.synthetic.main.activity_login.*
 import java.net.HttpURLConnection
 
 class LoginActivity : BaseActivity() {
-    private lateinit var apiManager: APIManager
-    private lateinit var userStore: UserStore
-    private lateinit var authorizationStore: AuthorizationStore
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-        userStore = UserStore.getInstance(this)
-        authorizationStore = AuthorizationStore.getInstance(this)
-        apiManager = APIManager.getInstance(this)
 
         button_login.setOnClickListener {
             login()
         }
     }
 
-    private fun showLoginFailed(errorString: String?) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
-
     private fun login(){
+        view_loading.visibility = View.VISIBLE
+
         val username = input_username.text.toString()
         val password = input_password.text.toString()
 
         apiManager.login(username, password) { response ->
+            main.post { view_loading.visibility = View.GONE }
+
             if (response.success == true) {
                 val data = response.data
 
@@ -62,12 +52,12 @@ class LoginActivity : BaseActivity() {
             } else {
                 main.post {
                     if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                        showLoginFailed(getString(R.string.invalid_username_password))
+                        showToast(getString(R.string.invalid_username_password))
                     } else {
                         response.error?.let { error ->
-                            showLoginFailed(error.localizedMessage)
+                            showToast(error.localizedMessage)
                         } ?: run {
-                            showLoginFailed("Status Code: ${response.status}")
+                            showToast("Status Code: ${response.status}")
                         }
                     }
                 }

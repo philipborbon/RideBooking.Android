@@ -48,13 +48,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:selectAllOnFocus="true"
+                android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
                 android:hint="@string/prompt_password">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/input_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeActionLabel="@string/action_sign_in_short"
+                    android:imeActionLabel="@string/action_register"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"/>
 
@@ -68,11 +69,20 @@
                 android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"/>
     </LinearLayout>
 
-    <ProgressBar
+    <FrameLayout
             android:id="@+id/view_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"/>
+            android:clickable="true"
+            android:focusable="true"
+            tools:visibility="visible">
+
+        <ProgressBar
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
 
 </RelativeLayout>
