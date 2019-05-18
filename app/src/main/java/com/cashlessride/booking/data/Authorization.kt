@@ -18,4 +18,8 @@ data class Authorization (
 
         return compare <= 0
     }
+
+    fun getAccessToken(): String {
+        return "$tokentype $token"
+    }
 }

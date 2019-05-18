@@ -22,33 +22,40 @@ const val LOG_TAG = "APIManager"
 class APIManager private constructor(context: Context) {
     companion object : SingletonHolder<APIManager, Context>(::APIManager)
 
-    private val service = CashLessRideService.instance
+    private val service = CashlessRideService.getInstance(context)
     private val authorizationStore =  AuthorizationStore.getInstance(context)
+    private val userStore =  UserStore.getInstance(context)
 
     private var _onUnauthorized: (() -> Unit)? = null
     private var _onError: ((ServiceResponse<*>) -> Unit)? = null
 
-    private fun provideToken(completion: (authorization: Authorization) -> Unit){
+    private fun validateToken(completion: (authorization: Authorization) -> Unit){
         val authorization = authorizationStore.getAuthorization()
 
         if (authorization.isExpired()) {
             login(authorizationStore.username, authorizationStore.password) { response ->
-                if (response.success == true) {
-                    val data = response.data
+                when {
+                    response.success == true -> {
+                        val data = response.data
 
-                    authorizationStore.setAuthorization(Authorization(
-                        tokentype = data?.tokentype,
-                        token = data?.token,
-                        expiresin = data?.expiresin
-                    ))
+                        authorizationStore.setAuthorization(Authorization(
+                            tokentype = data?.tokentype,
+                            token = data?.token,
+                            expiresin = data?.expiresin
+                        ))
 
-                    completion(authorization)
-                } else if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {
-                    _onUnauthorized?.let { onUnauthorized ->
+                        data?.user?.let {
+                            userStore.setUser(it)
+                        }
+
+                        completion(authorization)
+                    }
+
+                    response.status == HttpURLConnection.HTTP_UNAUTHORIZED -> _onUnauthorized?.let { onUnauthorized ->
                         onUnauthorized()
                     }
-                } else {
-                    _onError?.let { onError ->
+
+                    else -> _onError?.let { onError ->
                         onError(response)
                     }
                 }
