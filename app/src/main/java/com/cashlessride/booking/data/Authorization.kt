@@ -16,7 +16,7 @@ data class Authorization (
         val currentDate = Calendar.getInstance().time
         val compare = currentDate.compareTo(expirationDate)
 
-        return compare <= 0
+        return compare >= 0
     }
 
     fun getAccessToken(): String {

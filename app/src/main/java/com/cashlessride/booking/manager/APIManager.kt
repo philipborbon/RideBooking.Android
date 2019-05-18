@@ -29,7 +29,7 @@ class APIManager private constructor(context: Context) {
     private var _onUnauthorized: (() -> Unit)? = null
     private var _onError: ((ServiceResponse<*>) -> Unit)? = null
 
-    private fun validateToken(completion: (authorization: Authorization) -> Unit){
+    private fun verifyToken(completion: (authorization: Authorization) -> Unit){
         val authorization = authorizationStore.getAuthorization()
 
         if (authorization.isExpired()) {

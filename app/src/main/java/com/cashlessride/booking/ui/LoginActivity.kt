@@ -41,6 +41,9 @@ class LoginActivity : BaseActivity() {
                     expiresin = data?.expiresin
                 )
 
+                authorizationStore.username = username
+                authorizationStore.password = password
+
                 authorizationStore.setAuthorization(authorization)
 
                 main.post {
