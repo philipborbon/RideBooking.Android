@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/material_layout_keylines_screen_edge_margin"
+            android:paddingStart="@dimen/material_layout_keylines_screen_edge_margin"
+            android:paddingEnd="@dimen/material_layout_keylines_screen_edge_margin"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/display_route"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/material_typography_headline"
+                    tools:text="Marbel To Gensan"
+                    android:gravity="center"
+                    android:textColor="@color/material_light_black"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas">
+
+                <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/material_light_black"
+                            android:textSize="@dimen/material_typography_body1"
+                            android:text="Date:"/>
+
+                    <TextView
+                            android:id="@+id/display_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/material_typography_headline"
+                            tools:text="05/03/94"
+                            android:textColor="@color/material_light_black"
+                            android:layout_marginStart="@dimen/material_layout_vertical_spacing_between_content_areas"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/material_layout_vertical_spacing_between_content_areas"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/material_light_black"
+                            android:textSize="@dimen/material_typography_body1"
+                            android:text="Time:"/>
+
+                    <TextView
+                            android:id="@+id/display_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/material_typography_headline"
+                            tools:text="8:20"
+                            android:textColor="@color/material_light_black"
+                            android:layout_marginStart="@dimen/material_layout_vertical_spacing_between_content_areas"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/material_layout_vertical_spacing_between_content_areas">
+
+                <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Schedule ID:"
+                            android:textSize="@dimen/material_typography_body1"
+                            android:textColor="@color/material_light_black"/>
+
+                    <TextView
+                            android:id="@+id/display_id"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/material_typography_headline"
+                            tools:text="20"
+                            android:textColor="@color/material_light_black"
+                            android:layout_marginStart="@dimen/material_layout_vertical_spacing_between_content_areas"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/material_light_black"
+                            android:textSize="@dimen/material_typography_body1"
+                            android:text="Departed:"/>
+
+                    <TextView
+                            android:id="@+id/display_departed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/material_typography_headline"
+                            tools:text="Yes"
+                            android:textColor="@color/material_light_black"
+                            android:layout_marginStart="@dimen/material_layout_vertical_spacing_between_content_areas"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Book"
+                style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,20 +1,27 @@
 package com.cashlessride.booking.ui
 
 import android.annotation.SuppressLint
+import android.content.AbstractThreadedSyncAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.cashlessride.booking.R
+import com.cashlessride.booking.adapter.RideScheduleAdapter
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var adapter: RideScheduleAdapter
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +40,46 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         val header = nav_view.getHeaderView(0)
         header.display_email.text = userStore.email
         header.display_name.text = "${userStore.firstname} ${userStore.lastname}"
+
+        adapter = RideScheduleAdapter()
+
+        recycler_view.layoutManager = LinearLayoutManager(this)
+        recycler_view.adapter = adapter
+
+        swipe_refresh.setColorSchemeColors (
+            ContextCompat.getColor(this, R.color.material_green_500),
+            ContextCompat.getColor(this, R.color.material_red_500),
+            ContextCompat.getColor(this, R.color.material_blue_500)
+        )
+
+        swipe_refresh.setOnRefreshListener {
+            refreshSchedule()
+        }
+
+        refreshSchedule()
+    }
+
+    private fun refreshSchedule(){
+        swipe_refresh.isRefreshing = true
+
+        apiManager.getRideSchedules { response ->
+            if (response.success == true) {
+                main.post {
+                    swipe_refresh.isRefreshing = false
+
+                    adapter.scheduleList = response.data
+                    adapter.notifyDataSetChanged()
+                }
+            } else {
+                main.post {
+                    response.error?.let { error ->
+                        showToast(error.localizedMessage)
+                    } ?: run {
+                        showToast("Status Code: ${response.status}")
+                    }
+                }
+            }
+        }
     }
 
     override fun onBackPressed() {
