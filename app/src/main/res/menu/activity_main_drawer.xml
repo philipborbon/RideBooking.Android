@@ -3,7 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group>
+    <group android:id="@+id/menu_top">
+        <item
+                android:id="@+id/nav_wallet"
+                android:icon="@drawable/ic_wallet"
+                android:title="Wallet" />
+    </group>
+
+    <group android:id="@+id/menu_bottom">
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"

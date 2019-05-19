@@ -63,10 +63,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         swipe_refresh.isRefreshing = true
 
         apiManager.getRideSchedules { response ->
+            main.post { swipe_refresh.isRefreshing = false }
+
             if (response.success == true) {
                 main.post {
-                    swipe_refresh.isRefreshing = false
-
                     adapter.scheduleList = response.data
                     adapter.notifyDataSetChanged()
                 }
@@ -93,6 +93,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_logout -> logout()
+            R.id.nav_wallet -> {
+                val intent = Intent(this, WalletActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
