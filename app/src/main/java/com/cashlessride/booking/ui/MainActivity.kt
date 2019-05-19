@@ -93,6 +93,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 val intent = Intent(this, WalletActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_history -> {
+                val intent = Intent(this, TopupHistoryActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

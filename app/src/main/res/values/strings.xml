@@ -2,6 +2,7 @@
     <string name="app_name">Cashless Ride</string>
     <string name="title_activity_login">Sign in</string>
     <string name="title_activity_wallet">Wallet</string>
+    <string name="title_activity_topup_history">Top-Up History</string>
     <string name="title_activity_topup">Top-up</string>
 
 

@@ -217,4 +217,35 @@ class APIManager private constructor(context: Context) {
             })
         }
     }
+
+    fun topupList(completion: (ServiceResponse<ArrayList<Topup>>) -> Unit){
+        verifyToken {
+            val call = service.topupList()
+
+            call.enqueue(object: Callback<ServiceResponse<ArrayList<Topup>>> {
+                override fun onFailure(call: Call<ServiceResponse<ArrayList<Topup>>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<ArrayList<Topup>>>,
+                    response: Response<ServiceResponse<ArrayList<Topup>>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
 }

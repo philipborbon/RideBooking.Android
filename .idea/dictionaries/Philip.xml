@@ -10,6 +10,8 @@
       <w>loginstore</w>
       <w>tokentype</w>
       <w>topup</w>
+      <w>topupcode</w>
+      <w>topups</w>
       <w>userstore</w>
       <w>usertype</w>
     </words>

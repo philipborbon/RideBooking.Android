@@ -13,13 +13,19 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.WalletActivity"
-                  android:label="@string/title_activity_wallet"
-                  android:parentActivityName=".ui.MainActivity">
+        <activity android:name=".ui.TopupHistoryActivity"
+                android:label="@string/title_activity_topup_history"
+                android:parentActivityName=".ui.MainActivity">
         </activity>
-        <activity android:name=".ui.TopupActivity"
-                  android:label="@string/title_activity_topup"
-                  android:parentActivityName=".ui.WalletActivity">
+        <activity
+                android:name=".ui.WalletActivity"
+                android:label="@string/title_activity_wallet"
+                android:parentActivityName=".ui.MainActivity">
+        </activity>
+        <activity
+                android:name=".ui.TopupActivity"
+                android:label="@string/title_activity_topup"
+                android:parentActivityName=".ui.WalletActivity">
         </activity>
         <activity
                 android:name=".ui.RegisterActivity"
