@@ -120,11 +120,7 @@ class RegisterActivity : BaseActivity() {
                         if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {
                             showToast(response.message)
                         } else {
-                            response.error?.let { error ->
-                                showToast(error.localizedMessage)
-                            } ?: run {
-                                showToast("Status Code: ${response.status}")
-                            }
+                            showToast(response.getErrorMessage())
                         }
                     }
                 }

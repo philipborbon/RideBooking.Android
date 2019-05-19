@@ -74,4 +74,8 @@ interface CashlessRideService {
 
     @GET("wallet/detail")
     fun getWallet(): Call<ServiceResponse<Wallet>>
+
+    @FormUrlEncoded
+    @POST("wallet/topup")
+    fun topup(@Field("amount") amount: Double?): Call<ServiceResponse<String>>
 }

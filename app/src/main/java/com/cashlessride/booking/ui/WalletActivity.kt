@@ -1,11 +1,10 @@
 package com.cashlessride.booking.ui
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.cashlessride.booking.R
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.view_loading
 import kotlinx.android.synthetic.main.activity_wallet.*
 
@@ -21,6 +20,11 @@ class WalletActivity : BaseActivity() {
 
         button_refresh.setOnClickListener {
             loadWallet()
+        }
+
+        button_topup.setOnClickListener {
+            val intent = Intent(this, TopupActivity::class.java)
+            startActivity(intent)
         }
 
         loadWallet()
@@ -40,11 +44,7 @@ class WalletActivity : BaseActivity() {
                 }
             } else {
                 main.post {
-                    response.error?.let { error ->
-                        showToast(error.localizedMessage)
-                    } ?: run {
-                        showToast("Status Code: ${response.status}")
-                    }
+                    showToast(response.getErrorMessage())
                 }
             }
         }

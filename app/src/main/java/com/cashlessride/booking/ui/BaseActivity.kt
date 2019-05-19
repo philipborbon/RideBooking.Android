@@ -1,7 +1,9 @@
 package com.cashlessride.booking.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cashlessride.booking.manager.APIManager
@@ -29,5 +31,12 @@ open class BaseActivity : AppCompatActivity() {
 
     protected fun showToast(errorString: String?) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+    }
+
+    protected fun hideKeyboard() {
+        currentFocus?.let {
+            val inputManager:InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(it.windowToken, InputMethodManager.SHOW_FORCED)
+        }
     }
 }

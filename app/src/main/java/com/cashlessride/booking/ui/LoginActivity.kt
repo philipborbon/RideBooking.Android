@@ -57,11 +57,7 @@ class LoginActivity : BaseActivity() {
                     if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {
                         showToast(getString(R.string.invalid_username_password))
                     } else {
-                        response.error?.let { error ->
-                            showToast(error.localizedMessage)
-                        } ?: run {
-                            showToast("Status Code: ${response.status}")
-                        }
+                        showToast(response.getErrorMessage())
                     }
                 }
             }
