@@ -434,4 +434,35 @@ class APIManager private constructor(context: Context) {
             })
         }
     }
+
+    fun getDriverSchedule(completion: (ServiceResponse<ArrayList<RideSchedule>>) -> Unit){
+        verifyToken {
+            val call = service.getDriverSchedule()
+
+            call.enqueue(object: Callback<ServiceResponse<ArrayList<RideSchedule>>> {
+                override fun onFailure(call: Call<ServiceResponse<ArrayList<RideSchedule>>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<ArrayList<RideSchedule>>>,
+                    response: Response<ServiceResponse<ArrayList<RideSchedule>>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
 }

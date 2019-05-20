@@ -8,8 +8,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.cashlessride.booking.BuildConfig
 import com.cashlessride.booking.R
 import com.cashlessride.booking.adapter.RideScheduleAdapter
+import com.cashlessride.booking.util.Util
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -66,17 +68,34 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private fun refreshSchedule(){
         swipe_refresh.isRefreshing = true
 
-        apiManager.getRideSchedules { response ->
-            main.post { swipe_refresh.isRefreshing = false }
+        if (BuildConfig.FLAVOR == Util.FLAVOR_PASSENGER) {
+            apiManager.getRideSchedules { response ->
+                main.post { swipe_refresh.isRefreshing = false }
 
-            if (response.success == true) {
-                main.post {
-                    adapter.scheduleList = response.data
-                    adapter.notifyDataSetChanged()
+                if (response.success == true) {
+                    main.post {
+                        adapter.scheduleList = response.data
+                        adapter.notifyDataSetChanged()
+                    }
+                } else {
+                    main.post {
+                        showToast(response.getErrorMessage())
+                    }
                 }
-            } else {
-                main.post {
-                    showToast(response.getErrorMessage())
+            }
+        } else if (BuildConfig.FLAVOR == Util.FLAVOR_DRIVER){
+            apiManager.getDriverSchedule { response ->
+                main.post { swipe_refresh.isRefreshing = false }
+
+                if (response.success == true) {
+                    main.post {
+                        adapter.scheduleList = response.data
+                        adapter.notifyDataSetChanged()
+                    }
+                } else {
+                    main.post {
+                        showToast(response.getErrorMessage())
+                    }
                 }
             }
         }

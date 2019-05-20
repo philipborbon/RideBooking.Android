@@ -4,8 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.cashlessride.booking.BuildConfig
 import com.cashlessride.booking.R
 import com.cashlessride.booking.data.RideSchedule
+import com.cashlessride.booking.util.Util
 import kotlinx.android.synthetic.main.layout_schedule.view.*
 import java.text.SimpleDateFormat
 
@@ -45,10 +47,17 @@ class RideScheduleAdapter : RecyclerView.Adapter<RideScheduleAdapter.ViewHolder>
             view.display_id.text = "${data.id}"
             view.display_departed.text = if (data.departed == 1) "Yes" else "No"
 
-            if (data.departed == 1) {
+            if ( BuildConfig.FLAVOR == Util.FLAVOR_PASSENGER ) {
+                view.container_departed.visibility = View.VISIBLE
+
+                if (data.departed == 1) {
+                    view.button_book.visibility = View.GONE
+                } else {
+                    view.button_book.visibility = View.VISIBLE
+                }
+            } else if ( BuildConfig.FLAVOR == Util.FLAVOR_DRIVER ) {
                 view.button_book.visibility = View.GONE
-            } else {
-                view.button_book.visibility = View.VISIBLE
+                view.container_departed.visibility = View.GONE
             }
 
             view.button_book.setOnClickListener {

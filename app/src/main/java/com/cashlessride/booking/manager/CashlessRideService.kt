@@ -98,4 +98,7 @@ interface CashlessRideService {
 
     @GET("booking/confirmed")
     fun getConfirmedBooking(): Call<ServiceResponse<ArrayList<Booking>>>
+
+    @GET("schedule/driver")
+    fun getDriverSchedule(): Call<ServiceResponse<ArrayList<RideSchedule>>>
 }
