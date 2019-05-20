@@ -58,9 +58,7 @@ class WalletActivity : BaseActivity() {
                     display_balance.text = Util.formatAmount(data?.amount)
                 }
             } else {
-                main.post {
-                    showToast(response.getErrorMessage())
-                }
+                main.post { showToast(response.getErrorMessage()) }
             }
         }
     }

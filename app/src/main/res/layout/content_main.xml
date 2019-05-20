@@ -1,25 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/material_layout_vertical_spacing_between_content_areas"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.MainActivity"
+        tools:showIn="@layout/app_bar_main">
 
+    <FrameLayout
+            android:id="@+id/container_toggle"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/material_typography_headline"
+                    android:textColor="@color/material_light_black"
+                    android:text="Are you available today?"
+                    android:gravity="center"/>
+
+            <RadioGroup
+                    android:id="@+id/radio_group_available"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/radio_yes"
+                    android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                    android:paddingStart="@dimen/material_component_bottom_sheet_list_item_text_horizontal_padding"
+                    android:paddingEnd="@dimen/material_component_bottom_sheet_list_item_text_horizontal_padding"
+                    android:orientation="horizontal">
+                <RadioButton
+                        android:layout_weight="1"
+                        android:id="@+id/radio_yes"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Yes"/>
+                <RadioButton
+                        android:layout_weight="1"
+                        android:id="@+id/radio_no"
+                        android:layout_width="0dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:layout_height="wrap_content"
+                        android:text="No"/>
+            </RadioGroup>
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+                    android:layout_marginStart="@dimen/material_component_bottom_sheet_list_item_text_horizontal_padding"
+                    android:layout_marginEnd="@dimen/material_component_bottom_sheet_list_item_text_horizontal_padding"
+                    android:background="@color/material_grey_200" />
+
+        </LinearLayout>
+
+        <FrameLayout
+                android:id="@+id/view_available_loading"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:clickable="true"
+                android:focusable="true"
+                tools:visibility="visible">
+
+            <ProgressBar
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+    </FrameLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_below="@id/container_toggle"
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/nav_header_vertical_spacing"
             android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="@dimen/material_layout_vertical_spacing_between_content_areas" />
+                android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</FrameLayout>
+</RelativeLayout>

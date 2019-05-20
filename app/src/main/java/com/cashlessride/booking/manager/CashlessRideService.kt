@@ -101,4 +101,11 @@ interface CashlessRideService {
 
     @GET("schedule/driver")
     fun getDriverSchedule(): Call<ServiceResponse<ArrayList<RideSchedule>>>
+
+    @GET("user/driveravailable")
+    fun isDriverAvailable(): Call<ServiceResponse<Int>>
+
+    @FormUrlEncoded
+    @POST("user/driveravailable")
+    fun setDriverAvailable(@Field("available") available: Int): Call<ServiceResponse<Int>>
 }

@@ -45,9 +45,7 @@ class RedeemActivity : BaseActivity() {
                             input_amount.setText("")
                         }
                     } else {
-                        main.post {
-                            showToast(response.getErrorMessage())
-                        }
+                        main.post { showToast(response.getErrorMessage()) }
                     }
                 }
             }

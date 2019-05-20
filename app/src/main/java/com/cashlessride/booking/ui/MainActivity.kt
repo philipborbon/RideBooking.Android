@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
@@ -62,6 +63,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
             refreshSchedule()
         }
 
+        if (BuildConfig.FLAVOR == Util.FLAVOR_DRIVER) {
+            container_toggle.visibility = View.VISIBLE
+            isAvailable()
+        } else {
+            container_toggle.visibility = View.GONE
+        }
+
         refreshSchedule()
     }
 
@@ -78,9 +86,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         adapter.notifyDataSetChanged()
                     }
                 } else {
-                    main.post {
-                        showToast(response.getErrorMessage())
-                    }
+                    main.post { showToast(response.getErrorMessage()) }
                 }
             }
         } else if (BuildConfig.FLAVOR == Util.FLAVOR_DRIVER){
@@ -93,9 +99,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                         adapter.notifyDataSetChanged()
                     }
                 } else {
-                    main.post {
-                        showToast(response.getErrorMessage())
-                    }
+                    main.post { showToast(response.getErrorMessage()) }
                 }
             }
         }
@@ -147,5 +151,63 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         startActivity(intent)
 
         finish()
+    }
+
+    private fun isAvailable(){
+        view_available_loading.visibility = View.VISIBLE
+
+        apiManager.isDriverAvailable { response ->
+            main.post { view_available_loading.visibility = View.GONE }
+
+            if (response.success == true) {
+                main.post {
+                    radio_group_available.setOnCheckedChangeListener(null)
+
+                    if (response.data == 1) {
+                        radio_group_available.check(R.id.radio_yes)
+                    } else {
+                        radio_group_available.check(R.id.radio_no)
+                    }
+
+                    attachCheckedListener()
+                }
+            } else {
+                main.post { showToast(response.getErrorMessage()) }
+            }
+        }
+    }
+
+    private fun updateAvailable(){
+        view_available_loading.visibility = View.VISIBLE
+
+        val available = if (radio_group_available.checkedRadioButtonId == radio_yes.id) 1 else 0
+
+        apiManager.setDriverAvailable(available) { response ->
+            main.post { view_available_loading.visibility = View.GONE }
+
+            if (response.success == true) {
+                main.post {
+                    showToast("Driver vehicle availability has been updated.")
+
+                    radio_group_available.setOnCheckedChangeListener(null)
+
+                    if (response.data == 1) {
+                        radio_group_available.check(R.id.radio_yes)
+                    } else {
+                        radio_group_available.check(R.id.radio_no)
+                    }
+
+                    attachCheckedListener()
+                }
+            } else {
+                main.post { showToast(response.getErrorMessage()) }
+            }
+        }
+    }
+
+    private fun attachCheckedListener(){
+        radio_group_available.setOnCheckedChangeListener { radioGroup, checkedId ->
+            updateAvailable()
+        }
     }
 }

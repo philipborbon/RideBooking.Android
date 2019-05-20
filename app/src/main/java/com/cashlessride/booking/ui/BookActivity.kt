@@ -163,20 +163,22 @@ class BookActivity : BaseActivity() {
             main.post { view_loading.visibility = View.GONE }
 
             if (it.success == true) {
-                val dialog = AlertDialog.Builder(this)
-                dialog.setTitle("Booking Success")
-                dialog.setMessage(HtmlCompat.fromHtml("Before boarding your ride, please present your booking code to the dispatcher for confirmation.<br><br>Booking Code: <b>${it.data?.bookingcode}<\\b>", Html.FROM_HTML_MODE_LEGACY))
-                dialog.setCancelable(false)
-                dialog.setPositiveButton("OK") { dialog, which ->
-                    val intent = Intent(this, BookingHistory::class.java)
-                    startActivity(intent)
+                main.post {
+                    val dialog = AlertDialog.Builder(this)
+                    dialog.setTitle("Booking Success")
+                    dialog.setMessage(HtmlCompat.fromHtml("Before boarding your ride, please present your booking code to the dispatcher for confirmation.<br><br>Booking Code: <b>${it.data?.bookingcode}<\\b>", Html.FROM_HTML_MODE_LEGACY))
+                    dialog.setCancelable(false)
+                    dialog.setPositiveButton("OK") { dialog, which ->
+                        val intent = Intent(this, BookingHistory::class.java)
+                        startActivity(intent)
 
-                    finish()
+                        finish()
+                    }
+
+                    dialog.show()
                 }
-
-                dialog.show()
             } else {
-                showToast(it.getErrorMessage())
+                main.post { showToast(it.getErrorMessage()) }
             }
         }
     }

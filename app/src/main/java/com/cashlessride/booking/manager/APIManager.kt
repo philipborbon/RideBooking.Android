@@ -465,4 +465,66 @@ class APIManager private constructor(context: Context) {
             })
         }
     }
+
+    fun isDriverAvailable(completion: (ServiceResponse<Int>) -> Unit){
+        verifyToken {
+            val call = service.isDriverAvailable()
+
+            call.enqueue(object: Callback<ServiceResponse<Int>> {
+                override fun onFailure(call: Call<ServiceResponse<Int>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<Int>>,
+                    response: Response<ServiceResponse<Int>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
+
+    fun setDriverAvailable(available: Int, completion: (ServiceResponse<Int>) -> Unit){
+        verifyToken {
+            val call = service.setDriverAvailable(available)
+
+            call.enqueue(object: Callback<ServiceResponse<Int>> {
+                override fun onFailure(call: Call<ServiceResponse<Int>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<Int>>,
+                    response: Response<ServiceResponse<Int>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
 }
