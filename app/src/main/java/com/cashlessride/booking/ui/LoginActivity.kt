@@ -3,9 +3,10 @@ package com.cashlessride.booking.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import com.cashlessride.booking.BuildConfig
 import com.cashlessride.booking.R
 import com.cashlessride.booking.data.Authorization
+import com.cashlessride.booking.util.Util
 import kotlinx.android.synthetic.main.activity_login.*
 import java.net.HttpURLConnection
 
@@ -15,11 +16,11 @@ class LoginActivity : BaseActivity() {
         setContentView(R.layout.activity_login)
 
         button_login.setOnClickListener {
-            login()
+            doLogin()
         }
     }
 
-    private fun login(){
+    private fun doLogin(){
         view_loading.visibility = View.VISIBLE
 
         val username = input_username.text.toString()
@@ -32,6 +33,20 @@ class LoginActivity : BaseActivity() {
                 val data = response.data
 
                 data?.user?.let {
+                    if (BuildConfig.FLAVOR == Util.FLAVOR_DRIVER) {
+                        if (it.usertype != "driver") {
+                            main.post { showToast("Only drivers are allowed to login in this application.") }
+
+                            return@login
+                        }
+                    } else if (BuildConfig.FLAVOR == Util.FLAVOR_PASSENGER) {
+                        if (it.usertype != "passenger") {
+                            main.post { showToast("Only passengers are allowed to login in this application.") }
+
+                            return@login
+                        }
+                    }
+
                     userStore.setUser(it)
                 }
 
