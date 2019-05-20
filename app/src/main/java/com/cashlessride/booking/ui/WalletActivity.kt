@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.cashlessride.booking.R
+import com.cashlessride.booking.util.Util
 import kotlinx.android.synthetic.main.activity_login.view_loading
 import kotlinx.android.synthetic.main.activity_wallet.*
 
@@ -40,7 +41,7 @@ class WalletActivity : BaseActivity() {
                 val data = response.data
 
                 main.post {
-                    display_balance.text = String.format("Php %.2f", data?.amount ?: 0)
+                    display_balance.text = Util.formatAmount(data?.amount)
                 }
             } else {
                 main.post {

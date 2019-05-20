@@ -1,13 +1,10 @@
 package com.cashlessride.booking.ui
 
 import android.annotation.SuppressLint
-import android.content.AbstractThreadedSyncAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,6 +39,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         header.display_name.text = "${userStore.firstname} ${userStore.lastname}"
 
         adapter = RideScheduleAdapter()
+
+        adapter.onBookClick = {
+            val intent = Intent(this, BookActivity::class.java)
+            intent.putExtra(BookActivity.DATA_SCHEDULE, it)
+
+            startActivity(intent)
+        }
 
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.adapter = adapter

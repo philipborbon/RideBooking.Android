@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/display_route"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/material_typography_display1"
+            android:textColor="@color/material_light_black"
+            tools:text="Koronadal To Gensan"
+            android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:layout_alignParentStart="true"
+                android:id="@+id/label_fare"
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/material_typography_subheading"
+                android:textColor="@color/material_light_black"
+                android:text="Regular Fare:"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/display_fare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/material_typography_subheading"
+                android:textColor="@color/material_light_black"
+                android:layout_marginStart="@dimen/material_layout_vertical_spacing_between_content_areas"
+                tools:text="Php 20.00"
+                android:layout_toEndOf="@id/label_fare"
+                android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:id="@+id/container_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+            android:orientation="vertical" />
+
+</LinearLayout>

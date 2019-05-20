@@ -1,9 +1,7 @@
 package com.cashlessride.booking.manager
 
-import android.app.Service
 import android.content.Context
 import com.cashlessride.booking.BuildConfig
-import com.cashlessride.booking.common.SingletonHolder
 import com.cashlessride.booking.data.*
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -81,4 +79,10 @@ interface CashlessRideService {
 
     @GET("wallet/topups")
     fun topupList(): Call<ServiceResponse<ArrayList<Topup>>>
+
+    @POST("booking/create")
+    fun createBooking(@Body form: BookingForm): Call<ServiceResponse<Booking>>
+
+    @GET("booking/passengerTypes")
+    fun getPassengerTypes(): Call<ServiceResponse<ArrayList<PassengerType>>>
 }

@@ -248,4 +248,66 @@ class APIManager private constructor(context: Context) {
             })
         }
     }
+
+    fun createBooking(form: BookingForm, completion: (ServiceResponse<Booking>) -> Unit){
+        verifyToken {
+            val call = service.createBooking(form)
+
+            call.enqueue(object: Callback<ServiceResponse<Booking>> {
+                override fun onFailure(call: Call<ServiceResponse<Booking>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<Booking>>,
+                    response: Response<ServiceResponse<Booking>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
+
+    fun getPassengerTypes(completion: (ServiceResponse<ArrayList<PassengerType>>) -> Unit){
+        verifyToken {
+            val call = service.getPassengerTypes()
+
+            call.enqueue(object: Callback<ServiceResponse<ArrayList<PassengerType>>> {
+                override fun onFailure(call: Call<ServiceResponse<ArrayList<PassengerType>>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<ArrayList<PassengerType>>>,
+                    response: Response<ServiceResponse<ArrayList<PassengerType>>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
 }

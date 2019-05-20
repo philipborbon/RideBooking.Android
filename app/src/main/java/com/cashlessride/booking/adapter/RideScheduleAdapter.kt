@@ -22,6 +22,8 @@ class RideScheduleAdapter : RecyclerView.Adapter<RideScheduleAdapter.ViewHolder>
     private val timeParser = SimpleDateFormat("HH:mm:ss")
     private val timeFormatter = SimpleDateFormat("HH:mm")
 
+    var onBookClick: ((RideSchedule) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_schedule, parent, false)
         return ViewHolder(view)
@@ -42,6 +44,18 @@ class RideScheduleAdapter : RecyclerView.Adapter<RideScheduleAdapter.ViewHolder>
             view.display_time.text = timeFormatter.format(timeParser.parse(data.departuretime))
             view.display_id.text = "${data.id}"
             view.display_departed.text = if (data.departed == 1) "Yes" else "No"
+
+            if (data.departed == 1) {
+                view.button_book.visibility = View.GONE
+            } else {
+                view.button_book.visibility = View.VISIBLE
+            }
+
+            view.button_book.setOnClickListener {
+                onBookClick?.let {
+                    it(data)
+                }
+            }
         }
     }
 }

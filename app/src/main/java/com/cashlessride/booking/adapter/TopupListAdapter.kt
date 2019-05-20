@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cashlessride.booking.R
 import com.cashlessride.booking.data.Topup
+import com.cashlessride.booking.util.Util
 import kotlinx.android.synthetic.main.layout_topup.view.*
 import java.text.SimpleDateFormat
 
@@ -33,7 +34,7 @@ class TopupListAdapter : RecyclerView.Adapter<TopupListAdapter.ViewHolder>() {
     inner class ViewHolder(private var view: View): RecyclerView.ViewHolder(view){
         fun bindData(data: Topup){
             view.display_code.text = data.topupcode
-            view.display_amount.text = String.format("%.2f", data.amount)
+            view.display_amount.text = Util.formatAmount(data.amount)
             view.display_date.text = dateFormatter.format(data.created_at)
             view.display_is_paid.text = if (data.approved == 1) "Paid" else "Unpaid"
         }
