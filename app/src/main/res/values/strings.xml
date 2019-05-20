@@ -7,6 +7,7 @@
     <string name="title_activity_book">Book Schedule</string>
     <string name="title_activity_booking_history">Booking History</string>
     <string name="title_activity_redeem">Redeem</string>
+    <string name="title_activity_redeem_history">Redeem History</string>
 
     <string name="prompt_firstname">First Name*</string>
     <string name="prompt_lastname">Last Name*</string>

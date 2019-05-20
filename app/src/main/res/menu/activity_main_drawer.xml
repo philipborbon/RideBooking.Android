@@ -15,9 +15,19 @@
                 android:title="Booking History" />
 
         <item
+                android:id="@+id/nav_booking_confirmed"
+                android:icon="@drawable/ic_history"
+                android:title="Paid Bookings" />
+
+        <item
                 android:id="@+id/nav_topup_history"
                 android:icon="@drawable/ic_history"
                 android:title="Top-up History" />
+
+        <item
+                android:id="@+id/nav_redeem_history"
+                android:icon="@drawable/ic_history"
+                android:title="Redeem History" />
     </group>
 
     <group android:id="@+id/menu_bottom">

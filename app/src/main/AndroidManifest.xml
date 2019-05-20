@@ -13,7 +13,12 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.RedeemActivity"
+        <activity android:name=".ui.RedeemHistoryActivity"
+                android:label="@string/title_activity_redeem_history"
+                android:parentActivityName=".ui.RedeemActivity">
+        </activity>
+        <activity
+                android:name=".ui.RedeemActivity"
                 android:label="@string/title_activity_redeem"
                 android:parentActivityName=".ui.WalletActivity">
         </activity>
