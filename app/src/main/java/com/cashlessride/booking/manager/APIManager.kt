@@ -96,7 +96,7 @@ class APIManager private constructor(context: Context) {
         })
     }
 
-    fun register(form: RegisterForm, completion: (ServiceResponse<LoginResponse>) -> Unit){
+    fun register(form: UserForm, completion: (ServiceResponse<LoginResponse>) -> Unit){
         val call = service.register(form)
         call.enqueue(object: Callback<ServiceResponse<LoginResponse>> {
             override fun onFailure(call: Call<ServiceResponse<LoginResponse>>, t: Throwable) {
@@ -526,5 +526,34 @@ class APIManager private constructor(context: Context) {
                 }
             })
         }
+    }
+
+    fun updateUser(form: UserForm, completion: (ServiceResponse<User>) -> Unit){
+        val call = service.updateUser(form)
+        call.enqueue(object: Callback<ServiceResponse<User>> {
+            override fun onFailure(call: Call<ServiceResponse<User>>, t: Throwable) {
+                Timber.tag(LOG_TAG).e(t)
+                completion(ServiceResponse(success = false, error = t))
+            }
+
+            override fun onResponse(
+                call: Call<ServiceResponse<User>>,
+                response: Response<ServiceResponse<User>>
+            ) {
+                val serviceResponse = response.body() ?: ServiceResponse()
+                serviceResponse.status = response.code()
+                serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                response.errorBody()?.string()?.let {
+                    Timber.tag(LOG_TAG).e(it)
+
+                    val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                    serviceResponse.message = errorResponse.message
+                }
+
+                completion(serviceResponse)
+            }
+
+        })
     }
 }

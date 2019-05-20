@@ -136,6 +136,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 val intent = Intent(this, RedeemHistoryActivity::class.java)
                 startActivity(intent)
             }
+            R.id.nav_account -> {
+                val intent = Intent(this, AccountActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)

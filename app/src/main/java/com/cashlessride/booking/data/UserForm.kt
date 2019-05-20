@@ -5,12 +5,12 @@ import com.google.gson.annotations.Expose
 /**
  * Created on 5/18/2019.
  */
-data class RegisterForm (
-    @Expose var firstname: String?,
-    @Expose var lastname: String?,
-    @Expose var email: String?,
-    @Expose var password: String?,
-    @Expose var c_password: String?
+data class UserForm (
+    @Expose var firstname: String? = null,
+    @Expose var lastname: String? = null,
+    @Expose var email: String? = null,
+    @Expose var password: String? = null,
+    @Expose var c_password: String? = null
 ) {
     fun formData(): HashMap<String, String?>{
         return hashMapOf(

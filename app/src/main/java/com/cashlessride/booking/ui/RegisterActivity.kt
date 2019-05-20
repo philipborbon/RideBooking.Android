@@ -4,12 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import com.cashlessride.booking.R
 import com.cashlessride.booking.data.Authorization
-import com.cashlessride.booking.data.RegisterForm
+import com.cashlessride.booking.data.UserForm
 import com.cashlessride.booking.view.inputLayout
-import com.google.gson.annotations.Expose
 import kotlinx.android.synthetic.main.activity_register.*
 import java.net.HttpURLConnection
 
@@ -76,7 +74,7 @@ class RegisterActivity : BaseActivity() {
         if (shouldSubmit) {
             view_loading.visibility = View.VISIBLE
 
-            val registerForm = RegisterForm (
+            val registerForm = UserForm (
                 firstname = firstname,
                 lastname = lastname,
                 email = email,

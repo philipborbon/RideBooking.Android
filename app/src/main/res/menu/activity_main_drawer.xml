@@ -36,6 +36,10 @@
 
     <group android:id="@+id/menu_bottom">
         <item
+                android:id="@+id/nav_account"
+                android:icon="@drawable/ic_account"
+                android:title="Account" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"
             android:title="Logout" />

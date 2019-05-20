@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/material_layout_keylines_screen_edge_margin"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/material_layout_keylines_screen_edge_margin"
+        tools:context="com.cashlessride.booking.ui.RegisterActivity">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <ScrollView
+                android:id="@+id/container_user"
+                android:layout_above="@+id/button_update"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/material_light_black"
+                            android:textSize="@dimen/material_typography_caption"
+                            android:text="@string/text_email"/>
+
+                    <TextView
+                            android:id="@+id/display_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/material_light_black"
+                            android:textSize="@dimen/material_typography_subheading"
+                            tools:text="test@mail.com"/>
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:selectAllOnFocus="true"
+                        android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+                        android:hint="@string/prompt_firstname">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_firstname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeActionLabel="@string/action_register"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPersonName"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:selectAllOnFocus="true"
+                        android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+                        android:hint="@string/prompt_lastname">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_lastname"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeActionLabel="@string/action_register"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPersonName"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/material_light_black"
+                        android:textSize="@dimen/material_typography_body1"
+                        android:layout_marginTop="@dimen/material_layout_vertical_spacing_subtitle"
+                        android:text="Note: Only provide new password if you want to update your password."/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:selectAllOnFocus="true"
+                        android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+                        android:hint="@string/text_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionNext"
+                            android:inputType="textPassword"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:selectAllOnFocus="true"
+                        android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+                        android:hint="@string/text_confirm_password">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_confirm_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPassword"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_update"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"/>
+    </RelativeLayout>
+
+    <FrameLayout
+            android:id="@+id/view_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true"
+            tools:visibility="visible">
+
+        <ProgressBar
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+</FrameLayout>

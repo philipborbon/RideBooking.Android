@@ -65,7 +65,7 @@ interface CashlessRideService {
     fun login(@Field("username") username: String?, @Field("password") password: String?): Call<ServiceResponse<LoginResponse>>
 
     @POST("register")
-    fun register(@Body form: RegisterForm): Call<ServiceResponse<LoginResponse>>
+    fun register(@Body form: UserForm): Call<ServiceResponse<LoginResponse>>
 
     @GET("schedule/list")
     fun getRideSchedules(): Call<ServiceResponse<ArrayList<RideSchedule>>>
@@ -102,10 +102,13 @@ interface CashlessRideService {
     @GET("schedule/driver")
     fun getDriverSchedule(): Call<ServiceResponse<ArrayList<RideSchedule>>>
 
-    @GET("user/driveravailable")
-    fun isDriverAvailable(): Call<ServiceResponse<Int>>
-
     @FormUrlEncoded
     @POST("user/driveravailable")
     fun setDriverAvailable(@Field("available") available: Int): Call<ServiceResponse<Int>>
+
+    @GET("user/driveravailable")
+    fun isDriverAvailable(): Call<ServiceResponse<Int>>
+
+    @POST("user")
+    fun updateUser(@Body form: UserForm): Call<ServiceResponse<User>>
 }
