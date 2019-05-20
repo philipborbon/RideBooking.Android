@@ -29,7 +29,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField "String", "SERVER_URL", "\"http://cashlessride.com/api/\""
+            buildConfigField "String", "SERVER_URL", "\"http://cashlessride.me/api/\""
         }
 
         debug {
