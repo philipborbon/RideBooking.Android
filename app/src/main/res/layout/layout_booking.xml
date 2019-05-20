@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/material_layout_keylines_screen_edge_margin">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/display_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="AZXCD"
+                    android:textSize="@dimen/material_typography_headline"
+                    android:textColor="@color/material_light_black"/>
+
+            <TextView
+                    android:id="@+id/display_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Php 200.00"
+                    android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+                    android:textSize="@dimen/material_typography_subheading"
+                    android:textColor="@color/material_light_black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/display_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="05/19/19"
+                    android:gravity="end"
+                    android:textSize="@dimen/material_typography_subheading"
+                    android:textColor="@color/material_light_black"/>
+
+            <TextView
+                    android:id="@+id/display_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="15:30"
+                    android:gravity="end"
+                    android:textSize="@dimen/material_typography_subheading"
+                    android:textColor="@color/material_light_black"/>
+
+            <TextView
+                    android:id="@+id/display_is_approved"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Confirmed"
+                    android:layout_gravity="bottom"
+                    android:gravity="end"
+                    android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+                    android:textSize="@dimen/material_typography_subheading"
+                    android:textColor="@color/material_light_black"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/container_route"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    <TextView
+            android:id="@+id/display_boarding_time"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+            android:layout_height="wrap_content"
+            android:textColor="@color/material_light_black"
+            android:textSize="@dimen/material_typography_subheading"
+            tools:text="Boarding time starts at 15:00."/>
+
+</LinearLayout>

@@ -5,17 +5,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cashlessride.booking.R
-import com.cashlessride.booking.adapter.TopupListAdapter
-import kotlinx.android.synthetic.main.activity_topup_history.*
+import com.cashlessride.booking.adapter.BookingAdapter
+import kotlinx.android.synthetic.main.activity_booking_history.*
 
-class TopupHistoryActivity : BaseActivity() {
-    private lateinit var adapter: TopupListAdapter
+class BookingHistory : BaseActivity() {
+    private lateinit var adapter: BookingAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_topup_history)
+        setContentView(R.layout.activity_booking_history)
 
-        adapter = TopupListAdapter()
+        adapter = BookingAdapter(this)
 
         val layoutManager = LinearLayoutManager(this)
 
@@ -40,12 +40,12 @@ class TopupHistoryActivity : BaseActivity() {
     private fun pullList(){
         swipe_refresh.isRefreshing = true
 
-        apiManager.topupList { response ->
+        apiManager.getBookingHistory { response ->
             main.post { swipe_refresh.isRefreshing = false }
 
             if (response.success == true){
                 main.post {
-                    adapter.topupList = response.data
+                    adapter.bookingList = response.data
                     adapter.notifyDataSetChanged()
                 }
             } else {

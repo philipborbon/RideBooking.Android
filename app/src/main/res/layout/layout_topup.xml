@@ -42,7 +42,7 @@
                 android:id="@+id/display_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Php 200.00"
+                tools:text="05/19/19"
                 android:gravity="end"
                 android:textSize="@dimen/material_typography_subheading"
                 android:textColor="@color/material_light_black"/>
@@ -51,7 +51,7 @@
                 android:id="@+id/display_is_paid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Yes"
+                tools:text="Paid"
                 android:layout_gravity="bottom"
                 android:gravity="end"
                 android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"

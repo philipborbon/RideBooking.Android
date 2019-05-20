@@ -97,8 +97,12 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                 val intent = Intent(this, WalletActivity::class.java)
                 startActivity(intent)
             }
-            R.id.nav_history -> {
+            R.id.nav_topup_history -> {
                 val intent = Intent(this, TopupHistoryActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.nav_booking_history -> {
+                val intent = Intent(this, BookingHistory::class.java)
                 startActivity(intent)
             }
         }

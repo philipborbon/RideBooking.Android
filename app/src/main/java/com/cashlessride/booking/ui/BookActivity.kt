@@ -1,6 +1,7 @@
 package com.cashlessride.booking.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -167,6 +168,9 @@ class BookActivity : BaseActivity() {
                 dialog.setMessage(HtmlCompat.fromHtml("Before boarding your ride, please present your booking code to the dispatcher for confirmation.<br><br>Booking Code: <b>${it.data?.bookingcode}<\\b>", Html.FROM_HTML_MODE_LEGACY))
                 dialog.setCancelable(false)
                 dialog.setPositiveButton("OK") { dialog, which ->
+                    val intent = Intent(this, BookingHistory::class.java)
+                    startActivity(intent)
+
                     finish()
                 }
 
@@ -190,7 +194,7 @@ class BookActivity : BaseActivity() {
         } else {
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle("Confirm Booking")
-            dialog.setMessage(HtmlCompat.fromHtml("You are about to book a with an amount of <b>${Util.formatAmount(getTotal())}<\\b>.", Html.FROM_HTML_MODE_LEGACY))
+            dialog.setMessage(HtmlCompat.fromHtml("You are about to book a ride with an amount of <b>${Util.formatAmount(getTotal())}<\\b>.", Html.FROM_HTML_MODE_LEGACY))
             dialog.setPositiveButton("Create Booking") { dialog, which ->
                 createBooking()
             }

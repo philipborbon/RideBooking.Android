@@ -13,9 +13,14 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.BookActivity"
-                android:parentActivityName=".ui.MainActivity"
-                android:label="@string/title_activity_book">
+        <activity android:name=".ui.BookingHistory"
+                android:label="@string/title_activity_booking_history"
+                android:parentActivityName=".ui.MainActivity">
+        </activity>
+        <activity
+                android:name=".ui.BookActivity"
+                android:label="@string/title_activity_book"
+                android:parentActivityName=".ui.MainActivity">
         </activity>
         <activity
                 android:name=".ui.TopupHistoryActivity"

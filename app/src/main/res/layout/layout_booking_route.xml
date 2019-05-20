@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/display_route"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/material_typography_headline"
+            android:textColor="@color/material_light_black"
+            tools:text="Koronadal To Gensan"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:id="@+id/display_passenger"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/material_typography_subheading"
+            android:textColor="@color/material_light_black"
+            tools:text="Student: 1, PWD: 2"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

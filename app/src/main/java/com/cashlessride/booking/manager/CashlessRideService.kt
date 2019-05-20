@@ -85,4 +85,7 @@ interface CashlessRideService {
 
     @GET("booking/passengerTypes")
     fun getPassengerTypes(): Call<ServiceResponse<ArrayList<PassengerType>>>
+
+    @GET("booking/history")
+    fun getBookingHistory(): Call<ServiceResponse<ArrayList<Booking>>>
 }
