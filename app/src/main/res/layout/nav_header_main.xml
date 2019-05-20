@@ -18,7 +18,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
-            app:srcCompat="@drawable/ic_beenhere_white" />
+            app:srcCompat="@drawable/ic_splash" />
 
     <TextView
             android:id="@+id/display_name"
