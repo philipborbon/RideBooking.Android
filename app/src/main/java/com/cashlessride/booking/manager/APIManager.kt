@@ -218,9 +218,9 @@ class APIManager private constructor(context: Context) {
         }
     }
 
-    fun topupList(completion: (ServiceResponse<ArrayList<Topup>>) -> Unit){
+    fun getTopupList(completion: (ServiceResponse<ArrayList<Topup>>) -> Unit){
         verifyToken {
-            val call = service.topupList()
+            val call = service.getTopupList()
 
             call.enqueue(object: Callback<ServiceResponse<ArrayList<Topup>>> {
                 override fun onFailure(call: Call<ServiceResponse<ArrayList<Topup>>>, t: Throwable) {
@@ -324,6 +324,68 @@ class APIManager private constructor(context: Context) {
                 override fun onResponse(
                     call: Call<ServiceResponse<ArrayList<Booking>>>,
                     response: Response<ServiceResponse<ArrayList<Booking>>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
+
+    fun redeem(amount: Double?, completion: (ServiceResponse<String>) -> Unit){
+        verifyToken {
+            val call = service.redeem(amount)
+
+            call.enqueue(object: Callback<ServiceResponse<String>> {
+                override fun onFailure(call: Call<ServiceResponse<String>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<String>>,
+                    response: Response<ServiceResponse<String>>
+                ) {
+                    val serviceResponse = response.body() ?: ServiceResponse()
+                    serviceResponse.status = response.code()
+                    serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                    response.errorBody()?.string()?.let {
+                        Timber.tag(LOG_TAG).e(it)
+
+                        val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                        serviceResponse.message = errorResponse.message
+                    }
+
+                    completion(serviceResponse)
+                }
+            })
+        }
+    }
+
+    fun getRedeemList(completion: (ServiceResponse<ArrayList<Redeem>>) -> Unit){
+        verifyToken {
+            val call = service.getRedeemList()
+
+            call.enqueue(object: Callback<ServiceResponse<ArrayList<Redeem>>> {
+                override fun onFailure(call: Call<ServiceResponse<ArrayList<Redeem>>>, t: Throwable) {
+                    Timber.tag(LOG_TAG).e(t)
+                    completion(ServiceResponse(success = false, error = t))
+                }
+
+                override fun onResponse(
+                    call: Call<ServiceResponse<ArrayList<Redeem>>>,
+                    response: Response<ServiceResponse<ArrayList<Redeem>>>
                 ) {
                     val serviceResponse = response.body() ?: ServiceResponse()
                     serviceResponse.status = response.code()

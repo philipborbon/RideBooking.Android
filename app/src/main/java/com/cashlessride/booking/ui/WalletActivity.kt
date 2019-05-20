@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.cashlessride.booking.BuildConfig
 import com.cashlessride.booking.R
 import com.cashlessride.booking.util.Util
 import kotlinx.android.synthetic.main.activity_login.view_loading
@@ -26,6 +27,19 @@ class WalletActivity : BaseActivity() {
         button_topup.setOnClickListener {
             val intent = Intent(this, TopupActivity::class.java)
             startActivity(intent)
+        }
+
+        button_redeem.setOnClickListener {
+            val intent = Intent(this, RedeemActivity::class.java)
+            startActivity(intent)
+        }
+
+        if ( BuildConfig.FLAVOR == Util.FLAVOR_DRIVER ) {
+            button_topup.visibility = View.GONE
+        }
+
+        if ( BuildConfig.FLAVOR == Util.FLAVOR_PASSENGER ) {
+            button_redeem.visibility = View.GONE
         }
 
         loadWallet()

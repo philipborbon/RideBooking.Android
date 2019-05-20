@@ -6,6 +6,7 @@
     <string name="title_activity_topup">Top-up</string>
     <string name="title_activity_book">Book Schedule</string>
     <string name="title_activity_booking_history">Booking History</string>
+    <string name="title_activity_redeem">Redeem</string>
 
     <string name="prompt_firstname">First Name*</string>
     <string name="prompt_lastname">Last Name*</string>
@@ -26,4 +27,7 @@
     <string name="button_text_register">Register</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="text_cashless_ride">Cashless Ride</string>
+    <string name="text_email">Email</string>
+    <string name="text_password">Password</string>
 </resources>

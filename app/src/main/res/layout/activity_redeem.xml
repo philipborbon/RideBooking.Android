@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/material_layout_keylines_screen_edge_margin"
+        tools:context="com.cashlessride.booking.ui.TopupActivity"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/display_greeting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Redeem"
+                android:textSize="@dimen/material_typography_display2"
+                android:gravity="center"
+                android:textColor="@color/material_light_black"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/container_credit"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_amount"
+                android:layout_marginTop="@dimen/material_typography_subheading"
+                android:selectAllOnFocus="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_redeem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                android:layout_gravity="center"
+                android:text="Redeem"/>
+
+        <LinearLayout
+                android:id="@+id/container_code"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_typography_subheading"
+                android:orientation="vertical">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Please redeem your collection from your operator using the code below:"
+                    android:textColor="@color/material_light_black"
+                    android:textSize="@dimen/material_typography_headline"/>
+
+            <TextView
+                    android:id="@+id/display_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="AZXCD"
+                    android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+                    android:textSize="@dimen/material_typography_display3"
+                    android:gravity="center"
+                    android:textColor="@color/material_light_black"
+                    android:layout_alignParentTop="true"
+                    android:layout_above="@+id/container_credit"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+            android:id="@+id/view_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true"
+            tools:visibility="visible">
+
+        <ProgressBar
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+</FrameLayout>

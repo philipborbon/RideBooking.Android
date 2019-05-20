@@ -40,7 +40,7 @@ class TopupHistoryActivity : BaseActivity() {
     private fun pullList(){
         swipe_refresh.isRefreshing = true
 
-        apiManager.topupList { response ->
+        apiManager.getTopupList { response ->
             main.post { swipe_refresh.isRefreshing = false }
 
             if (response.success == true){

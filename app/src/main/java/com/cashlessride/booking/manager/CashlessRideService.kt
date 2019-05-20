@@ -78,7 +78,7 @@ interface CashlessRideService {
     fun topup(@Field("amount") amount: Double?): Call<ServiceResponse<String>>
 
     @GET("wallet/topups")
-    fun topupList(): Call<ServiceResponse<ArrayList<Topup>>>
+    fun getTopupList(): Call<ServiceResponse<ArrayList<Topup>>>
 
     @POST("booking/create")
     fun createBooking(@Body form: BookingForm): Call<ServiceResponse<Booking>>
@@ -88,4 +88,11 @@ interface CashlessRideService {
 
     @GET("booking/history")
     fun getBookingHistory(): Call<ServiceResponse<ArrayList<Booking>>>
+
+    @FormUrlEncoded
+    @POST("wallet/redeem")
+    fun redeem(@Field("amount") amount: Double?): Call<ServiceResponse<String>>
+
+    @GET("wallet/redeems")
+    fun getRedeemList(): Call<ServiceResponse<ArrayList<Redeem>>>
 }

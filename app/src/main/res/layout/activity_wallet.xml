@@ -55,13 +55,23 @@
 
     </LinearLayout>
 
-    <com.google.android.material.button.MaterialButton
-            android:id="@+id/button_topup"
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="Top-up" />
+            android:layout_centerHorizontal="true">
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_topup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top-up" />
+
+        <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_redeem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Redeem" />
+    </LinearLayout>
 
     <FrameLayout
             android:id="@+id/view_loading"
