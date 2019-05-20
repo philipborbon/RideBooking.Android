@@ -13,7 +13,13 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.RedeemHistoryActivity"
+        <activity
+                android:name=".ui.PaidBookingActivity"
+                android:label="@string/title_activity_booking_paid"
+                android:parentActivityName=".ui.MainActivity">
+        </activity>
+        <activity
+                android:name=".ui.RedeemHistoryActivity"
                 android:label="@string/title_activity_redeem_history"
                 android:parentActivityName=".ui.RedeemActivity">
         </activity>

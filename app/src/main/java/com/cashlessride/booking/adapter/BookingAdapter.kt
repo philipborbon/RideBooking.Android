@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.cashlessride.booking.BuildConfig
 import com.cashlessride.booking.R
 import com.cashlessride.booking.data.Booking
 import com.cashlessride.booking.data.BookingSeat
@@ -47,7 +48,21 @@ class BookingAdapter(private var context: Context) : RecyclerView.Adapter<Bookin
         fun bindData(data: Booking){
             view.display_code.text = data.bookingcode
             view.display_amount.text = Util.formatAmount(data.payment)
-            view.display_is_approved.text = if (data.approved == 1) "Confirmed" else "Unconfirmed"
+
+            if ( BuildConfig.FLAVOR == Util.FLAVOR_PASSENGER ) {
+                view.display_is_approved.visibility = View.VISIBLE
+            } else if ( BuildConfig.FLAVOR == Util.FLAVOR_DRIVER ) {
+                view.display_is_approved.visibility = View.GONE
+            }
+
+            val approvedText = when {
+                data.approved == 1 -> "Confirmed"
+                data.closed == 1 -> "Cancelled"
+                else -> "Unconfirmed"
+            }
+
+            view.display_is_approved.text = approvedText
+
             view.display_date.text = dateFormatter.format(dateParser.parse(data.schedule?.date))
             view.display_time.text = timeFormatter.format(timeParser.parse(data.schedule?.departuretime))
             view.display_boarding_time.text = HtmlCompat.fromHtml("Boarding time starts at <b>${timeFormatter.format(timeParser.parse(data.schedule?.boardingtime))}</b>.", Html.FROM_HTML_MODE_LEGACY)

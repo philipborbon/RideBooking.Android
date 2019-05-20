@@ -95,4 +95,7 @@ interface CashlessRideService {
 
     @GET("wallet/redeems")
     fun getRedeemList(): Call<ServiceResponse<ArrayList<Redeem>>>
+
+    @GET("booking/confirmed")
+    fun getConfirmedBooking(): Call<ServiceResponse<ArrayList<Booking>>>
 }
