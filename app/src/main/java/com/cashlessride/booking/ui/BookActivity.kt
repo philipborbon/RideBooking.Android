@@ -159,7 +159,7 @@ class BookActivity : BaseActivity() {
         val bookingForm = createBookingFormData()
 
         apiManager.createBooking(bookingForm) {
-            main.post { view_loading.visibility = View.VISIBLE }
+            main.post { view_loading.visibility = View.GONE }
 
             if (it.success == true) {
                 val dialog = AlertDialog.Builder(this)
