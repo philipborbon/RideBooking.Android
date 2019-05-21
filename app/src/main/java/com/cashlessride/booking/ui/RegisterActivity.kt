@@ -106,6 +106,7 @@ class RegisterActivity : BaseActivity() {
                         builder.setMessage("Your account has been created.")
                         builder.setPositiveButton("OK") { dialog, which ->
                             val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
 
                             finish()
