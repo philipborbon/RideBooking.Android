@@ -204,6 +204,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
                     attachCheckedListener()
                 }
             } else {
+                radio_group_available.check(R.id.radio_no)
                 main.post { showToast(response.getErrorMessage()) }
             }
         }
