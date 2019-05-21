@@ -5,6 +5,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\Philip\\Documents\\Android\\jks\\RideBooking\\ridebooking.jks')
+            storePassword 'aQLrSzKmD6d4Qtqc'
+            keyAlias = 'booking'
+            keyPassword '4VA4LA43QuDWREdg'
+        }
+    }
     compileSdkVersion 28
 
     defaultConfig {
@@ -30,6 +38,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             buildConfigField "String", "SERVER_URL", "\"http://cashlessride.me/api/\""
+            signingConfig signingConfigs.release
         }
 
         debug {
