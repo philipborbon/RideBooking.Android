@@ -5,22 +5,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    signingConfigs {
-        release {
-            storeFile file('C:\\Users\\Philip\\Documents\\Android\\jks\\RideBooking\\ridebooking.jks')
-            storePassword 'aQLrSzKmD6d4Qtqc'
-            keyAlias = 'booking'
-            keyPassword '4VA4LA43QuDWREdg'
-        }
-    }
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId "com.cashlessride"
+        applicationId "com.cashlessride.booking"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,10 +30,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             buildConfigField "String", "SERVER_URL", "\"http://cashlessride.me/api/\""
-            signingConfig signingConfigs.release
         }
 
         debug {
+            applicationIdSuffix ".debug"
+
             buildConfigField "String", "SERVER_URL", "\"http://192.168.254.114/api/\""
         }
     }
