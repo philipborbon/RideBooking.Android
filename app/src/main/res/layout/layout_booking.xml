@@ -72,6 +72,38 @@
                     android:textSize="@dimen/material_typography_subheading"
                     android:textColor="@color/material_light_black"/>
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/container_vehicle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Booking Vehicle"
+                android:textSize="@dimen/material_typography_caption"
+                android:textColor="@color/material_grey_700"/>
+
+        <TextView
+                android:id="@+id/display_vehicle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="White Van"
+                android:textSize="@dimen/material_typography_headline"
+                android:textColor="@color/material_light_black"/>
+
+        <TextView
+                android:id="@+id/display_cabnumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Cab #: 2048"
+                android:textSize="@dimen/material_typography_body1"
+                android:textColor="@color/material_light_black"/>
 
     </LinearLayout>
 
@@ -79,6 +111,7 @@
             android:id="@+id/container_route"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"
             android:orientation="vertical" />
 
     <TextView

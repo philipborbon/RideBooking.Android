@@ -51,7 +51,9 @@ class BookingAdapter(private var context: Context) : RecyclerView.Adapter<Bookin
 
             if ( BuildConfig.FLAVOR == Util.FLAVOR_PASSENGER ) {
                 view.display_is_approved.visibility = View.VISIBLE
+                view.container_vehicle.visibility = View.VISIBLE
             } else if ( BuildConfig.FLAVOR == Util.FLAVOR_DRIVER ) {
+                view.container_vehicle.visibility = View.GONE
                 view.display_is_approved.visibility = View.GONE
             }
 
@@ -66,6 +68,8 @@ class BookingAdapter(private var context: Context) : RecyclerView.Adapter<Bookin
             view.display_date.text = dateFormatter.format(dateParser.parse(data.schedule?.date))
             view.display_time.text = timeFormatter.format(timeParser.parse(data.schedule?.departuretime))
             view.display_boarding_time.text = HtmlCompat.fromHtml("Boarding time starts at <b>${timeFormatter.format(timeParser.parse(data.schedule?.boardingtime))}</b>.", Html.FROM_HTML_MODE_LEGACY)
+            view.display_vehicle.text = data.schedule?.vehicle?.description
+            view.display_cabnumber.text = HtmlCompat.fromHtml("Cab #: <b>${data.schedule?.vehicle?.cabnumber}</b>", Html.FROM_HTML_MODE_LEGACY)
 
             val routes = HashMap<Route?, ArrayList<BookingSeat?>?>()
 
