@@ -10,10 +10,12 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.cashlessride.booking.R
 import com.cashlessride.booking.manager.APIManager
+import com.cashlessride.booking.ui.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
 import java.net.HttpURLConnection
+
 
 private const val LOG_TAG = "BookingFMS"
 
@@ -108,10 +110,17 @@ class BookingFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(notification: RemoteMessage.Notification) {
+        val backIntent = Intent(this, MainActivity::class.java)
+        backIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
         val intent = Intent(notification.clickAction)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-            PendingIntent.FLAG_ONE_SHOT)
+
+        val pendingIntent = PendingIntent.getActivities (
+            this,
+            822 /* Request code */,
+            arrayOf(backIntent, intent),
+            PendingIntent.FLAG_ONE_SHOT
+        )
 
         val channelId = getString(R.string.notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
