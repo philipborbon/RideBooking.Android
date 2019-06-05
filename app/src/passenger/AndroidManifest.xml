@@ -29,6 +29,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+                android:name=".ui.WalletActivity"
+                android:label="@string/title_activity_wallet"
+                android:parentActivityName=".ui.MainActivity">
+        </activity>
     </application>
 
 </manifest>
