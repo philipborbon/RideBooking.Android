@@ -28,50 +28,14 @@
                   android:parentActivityName=".ui.MainActivity">
         </activity>
         <activity
-                android:name=".ui.PaidBookingActivity"
-                android:label="@string/title_activity_booking_paid"
-                android:parentActivityName=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="OPEN_ACTIVITY_PAID_BOOKING" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-                android:name=".ui.RedeemHistoryActivity"
-                android:label="@string/title_activity_redeem_history"
-                android:parentActivityName=".ui.RedeemActivity">
-            <intent-filter>
-                <action android:name="OPEN_ACTIVITY_REDEEM" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
                 android:name=".ui.RedeemActivity"
                 android:label="@string/title_activity_redeem"
                 android:parentActivityName=".ui.WalletActivity">
         </activity>
         <activity
-                android:name=".ui.BookingHistory"
-                android:label="@string/title_activity_booking_history"
-                android:parentActivityName=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="OPEN_ACTIVITY_BOOKING" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
                 android:name=".ui.BookActivity"
                 android:label="@string/title_activity_book"
                 android:parentActivityName=".ui.MainActivity">
-        </activity>
-        <activity
-                android:name=".ui.TopupHistoryActivity"
-                android:label="@string/title_activity_topup_history"
-                android:parentActivityName=".ui.MainActivity">
-            <intent-filter>
-                <action android:name="OPEN_ACTIVITY_TOPUP" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
         <activity
                 android:name=".ui.WalletActivity"
