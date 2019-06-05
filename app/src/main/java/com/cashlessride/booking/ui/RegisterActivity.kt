@@ -8,6 +8,8 @@ import com.cashlessride.booking.R
 import com.cashlessride.booking.data.Authorization
 import com.cashlessride.booking.data.UserForm
 import com.cashlessride.booking.view.inputLayout
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_register.*
 import java.net.HttpURLConnection
 
@@ -83,7 +85,7 @@ class RegisterActivity : BaseActivity() {
             )
 
             apiManager.register(registerForm) { response ->
-                view_loading.visibility = View.GONE
+                main.post { view_loading.visibility = View.GONE }
 
                 if (response.success == true) {
                     val data = response.data
@@ -100,20 +102,50 @@ class RegisterActivity : BaseActivity() {
 
                     authorizationStore.setAuthorization(authorization)
 
-                    main.post {
-                        val builder = AlertDialog.Builder(this)
-                        builder.setTitle("Success")
-                        builder.setMessage("Your account has been created.")
-                        builder.setPositiveButton("OK") { dialog, which ->
-                            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
+                    main.post { view_loading.visibility = View.VISIBLE }
 
-                            finish()
-                        }
+                    FirebaseInstanceId.getInstance().instanceId
+                        .addOnCompleteListener(OnCompleteListener { task ->
+                            if (!task.isSuccessful) {
+                                main.post {
+                                    view_loading.visibility = View.GONE
+                                    showToast(task.exception?.localizedMessage)
+                                }
+                                return@OnCompleteListener
+                            }
 
-                        builder.show()
-                    }
+                            // Get new Instance ID token
+                            val token = task.result?.token
+
+                            apiManager.updatePushToken(token) { response ->
+                                main.post { view_loading.visibility = View.GONE }
+
+                                if (response.success == true) {
+                                    main.post {
+                                        val builder = AlertDialog.Builder(this)
+                                        builder.setTitle("Success")
+                                        builder.setMessage("Your account has been created.")
+                                        builder.setPositiveButton("OK") { dialog, which ->
+                                            val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                            startActivity(intent)
+
+                                            finish()
+                                        }
+
+                                        builder.show()
+                                    }
+                                } else {
+                                    main.post {
+                                        if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                                            showToast(getString(R.string.invalid_username_password))
+                                        } else {
+                                            showToast(response.getErrorMessage())
+                                        }
+                                    }
+                                }
+                            }
+                        })
                 } else {
                     main.post {
                         if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {

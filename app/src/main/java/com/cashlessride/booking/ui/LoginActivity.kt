@@ -7,8 +7,13 @@ import com.cashlessride.booking.BuildConfig
 import com.cashlessride.booking.R
 import com.cashlessride.booking.data.Authorization
 import com.cashlessride.booking.util.Util
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_login.*
+import timber.log.Timber
 import java.net.HttpURLConnection
+
+private const val LOG_TAG = "LoginActivity"
 
 class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,13 +66,43 @@ class LoginActivity : BaseActivity() {
 
                 authorizationStore.setAuthorization(authorization)
 
-                main.post {
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+                main.post { view_loading.visibility = View.VISIBLE }
 
-                    finish()
-                }
+                FirebaseInstanceId.getInstance().instanceId
+                    .addOnCompleteListener(OnCompleteListener { task ->
+                        if (!task.isSuccessful) {
+                            main.post {
+                                view_loading.visibility = View.GONE
+                                showToast(task.exception?.localizedMessage)
+                            }
+                            return@OnCompleteListener
+                        }
+
+                        // Get new Instance ID token
+                        val token = task.result?.token
+
+                        apiManager.updatePushToken(token) { response ->
+                            main.post { view_loading.visibility = View.GONE }
+
+                            if (response.success == true) {
+                                main.post {
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    startActivity(intent)
+
+                                    finish()
+                                }
+                            } else {
+                                main.post {
+                                    if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                                        showToast(getString(R.string.invalid_username_password))
+                                    } else {
+                                        showToast(response.getErrorMessage())
+                                    }
+                                }
+                            }
+                        }
+                    })
             } else {
                 main.post {
                     if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {

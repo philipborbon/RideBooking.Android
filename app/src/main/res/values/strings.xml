@@ -35,4 +35,7 @@
     <string name="text_email">Email</string>
     <string name="text_password">Password</string>
     <string name="text_confirm_password">Confirm Password</string>
+
+    <string name="notification_channel_id">notification_channel_passenger</string>
+    <string name="notification_channel_name">Passenger\'s Notification</string>
 </resources>

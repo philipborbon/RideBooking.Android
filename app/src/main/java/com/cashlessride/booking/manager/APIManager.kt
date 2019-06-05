@@ -14,7 +14,7 @@ import java.net.HttpURLConnection
  * Created on 5/17/2019.
  */
 
-const val LOG_TAG = "APIManager"
+private const val LOG_TAG = "APIManager"
 
 class APIManager private constructor(context: Context) {
     companion object : SingletonHolder<APIManager, Context>(::APIManager)
@@ -539,6 +539,64 @@ class APIManager private constructor(context: Context) {
             override fun onResponse(
                 call: Call<ServiceResponse<User>>,
                 response: Response<ServiceResponse<User>>
+            ) {
+                val serviceResponse = response.body() ?: ServiceResponse()
+                serviceResponse.status = response.code()
+                serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                response.errorBody()?.string()?.let {
+                    Timber.tag(LOG_TAG).e(it)
+
+                    val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                    serviceResponse.message = errorResponse.message
+                }
+
+                completion(serviceResponse)
+            }
+
+        })
+    }
+
+    fun updatePushToken(token: String?, completion: (ServiceResponse<Any>) -> Unit){
+        val call = service.updatePushToken(token)
+        call.enqueue(object: Callback<ServiceResponse<Any>> {
+            override fun onFailure(call: Call<ServiceResponse<Any>>, t: Throwable) {
+                Timber.tag(LOG_TAG).e(t)
+                completion(ServiceResponse(success = false, error = t))
+            }
+
+            override fun onResponse(
+                call: Call<ServiceResponse<Any>>,
+                response: Response<ServiceResponse<Any>>
+            ) {
+                val serviceResponse = response.body() ?: ServiceResponse()
+                serviceResponse.status = response.code()
+                serviceResponse.success = response.code() == HttpURLConnection.HTTP_OK
+
+                response.errorBody()?.string()?.let {
+                    Timber.tag(LOG_TAG).e(it)
+
+                    val errorResponse = Gson().fromJson(it, ServiceResponse::class.java)
+                    serviceResponse.message = errorResponse.message
+                }
+
+                completion(serviceResponse)
+            }
+
+        })
+    }
+
+    fun clearPushToken(completion: (ServiceResponse<Any>) -> Unit){
+        val call = service.clearPushToken()
+        call.enqueue(object: Callback<ServiceResponse<Any>> {
+            override fun onFailure(call: Call<ServiceResponse<Any>>, t: Throwable) {
+                Timber.tag(LOG_TAG).e(t)
+                completion(ServiceResponse(success = false, error = t))
+            }
+
+            override fun onResponse(
+                call: Call<ServiceResponse<Any>>,
+                response: Response<ServiceResponse<Any>>
             ) {
                 val serviceResponse = response.body() ?: ServiceResponse()
                 serviceResponse.status = response.code()

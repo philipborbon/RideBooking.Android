@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Driver | Cashless Ride</string>
     <string name="text_welcome">Welcome Driver</string>
+
+    <string name="notification_channel_id">notification_channel_driver</string>
+    <string name="notification_channel_name">Driver\'s Notification</string>
 </resources>

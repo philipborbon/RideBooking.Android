@@ -111,4 +111,11 @@ interface CashlessRideService {
 
     @POST("user")
     fun updateUser(@Body form: UserForm): Call<ServiceResponse<User>>
+
+    @FormUrlEncoded
+    @POST("user/updateToken")
+    fun updatePushToken(@Field("push_token") token: String?): Call<ServiceResponse<Any>>
+
+    @DELETE("user/clearToken")
+    fun clearPushToken(): Call<ServiceResponse<Any>>
 }

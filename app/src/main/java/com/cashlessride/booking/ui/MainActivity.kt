@@ -18,6 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import java.net.HttpURLConnection
 
 
 class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -148,13 +149,27 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     private fun logout(){
-        userStore.clear()
-        authorizationStore.clear()
+        apiManager.clearPushToken { response ->
+            if (response.success == true) {
+                main.post {
+                    userStore.clear()
+                    authorizationStore.clear()
 
-        val intent = Intent(this, SplashActivity::class.java)
-        startActivity(intent)
+                    val intent = Intent(this, SplashActivity::class.java)
+                    startActivity(intent)
 
-        finish()
+                    finish()
+                }
+            } else {
+                main.post {
+                    if (response.status == HttpURLConnection.HTTP_UNAUTHORIZED) {
+                        showToast(getString(R.string.invalid_username_password))
+                    } else {
+                        showToast(response.getErrorMessage())
+                    }
+                }
+            }
+        }
     }
 
     private fun isAvailable(){
