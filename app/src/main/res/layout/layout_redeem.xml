@@ -51,7 +51,7 @@
                 android:id="@+id/display_is_collected"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="Collected"
+                tools:text="Redeemed"
                 android:layout_gravity="bottom"
                 android:gravity="end"
                 android:layout_marginTop="@dimen/material_layout_vertical_spacing_between_content_areas"

@@ -36,7 +36,7 @@ class RedeemListAdapter : RecyclerView.Adapter<RedeemListAdapter.ViewHolder>() {
             view.display_code.text = data.redeemcode
             view.display_amount.text = Util.formatAmount(data.amount)
             view.display_date.text = dateFormatter.format(data.created_at)
-            view.display_is_collected.text = if (data.approved == 1) "Collected" else "Uncollected"
+            view.display_is_collected.text = if (data.approved == 1) "Redeemed" else "Unredeemed"
         }
     }
 }
